@@ -15,8 +15,8 @@
             </tr>
         </thead>
         <tbody>
-            @for (book of books; track book.id) {
-                <tr ngFor="let country of countries">
+            @for (book of books; track $index) {
+                <tr ngFor="let book of books">
                     <td>{{book.id}}</td>
                     <td>{{book.title}}</td>
                     <td>{{book.author}}</td>
@@ -24,12 +24,13 @@
                     <td>{{book.pages}}</td>
                     <td>{{book.rating}}</td>
                     <td>{{book.publisherId}}</td>
-                    <td>{{book.publisher}}</td>
+                    <td>{{book.publisher.name}}</td>
                 </tr>
             }
         </tbody>
 
     </table>
+
 } @else {
     <p><em>Loading...</em></p>
 }

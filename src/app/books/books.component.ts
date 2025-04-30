@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Book } from './book';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
-
+import { MatPaginator } from '@angular/material/paginator';
 @Component({
   selector: 'app-books',
-  imports: [],
+  imports: [MatPaginator],
   templateUrl: './books.component.html',
   styleUrl: './books.component.scss'
 })
@@ -21,8 +21,9 @@ export class BooksComponent implements OnInit {
   getBooks() {
     this.http.get<Book[]>(`${environment.baseUrl}/api/Books`).subscribe({
       next: result => {
-        console.log("API returned:", result); // 👈 Add this
-        this.books = result;
+        this.books = result.slice(0, 100);
+        console.log("API returned:", result);
+
       },
       error: error => console.error("API ERROR:", error)
     });

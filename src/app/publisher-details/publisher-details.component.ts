@@ -1,11 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment.development';
+import { Book } from '../books/book';
+
 
 @Component({
   selector: 'app-publisher-details',
-  imports: [],
   templateUrl: './publisher-details.component.html',
-  styleUrl: './publisher-details.component.scss'
+  styleUrls: ['./publisher-details.component.scss']
 })
-export class PublisherDetailsComponent {
 
+export class PublisherDetailsComponent implements OnInit {
+  books: Book[] = [];
+  publisherId!: number;
+  publisherName: string = '';
+
+  constructor(private activatedRoute: ActivatedRoute, private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.getPublisherDetails();
+  }
+
+  getPublisherDetails() {
+    this.publisherId = Number(this.activatedRoute.snapshot.paramMap.get("id"));
+
+
+    this.http.get<any>(`${environment.baseUrl}/api/Publishers/${this.publisherId}`).subscribe({
+      next: result => {
+        this.publisherName = result.name;
+      },
+      error: error => console.error('Failed to load publisher:', error)
+    });
+
+    this.http.get<Book[]>(`${environment.baseUrl}/api/Books`).subscribe({
+      next: result => {
+        this.books = result.filter(b => b.publisherId === this.publisherId);
+      },
+      error: error => console.error(error)
+    });
+
+    
+  }
 }
+

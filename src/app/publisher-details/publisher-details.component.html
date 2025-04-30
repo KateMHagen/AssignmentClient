@@ -1,1 +1,33 @@
-<p>publisher-details works!</p>
+<h2>Publisher #{{ publisherId }}, {{publisherName}}</h2>
+<p>Total books: {{ books.length }}</p>
+
+@if (books.length > 0) {
+    <table>
+    <thead>
+        <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Description</th>
+        <th>Pages</th>
+        <th>Rating</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (book of books; track $index) {
+            <tr ngFor="let book of books">
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.description }}</td>
+            <td>{{ book.pages }}</td>
+            <td>{{ book.rating }}</td>
+            </tr>
+        }
+    </tbody>
+    </table>
+} @else {
+    <ng-template #noBooks>
+        <p>This publisher has not published any books.</p>
+      </ng-template>
+}
+
+
