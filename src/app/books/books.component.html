@@ -1,6 +1,7 @@
 <p>Books</p>
 
 @if (books) {
+    <button mat-flat-button color="primary" class="btn-add" [routerLink]="['/book']">Add a new Book</button>
     <table class="table table-striped" aria-labelledby="tableLabel">
         <thead>
             <tr>
@@ -18,9 +19,17 @@
             @for (book of books; track $index) {
                 <tr ngFor="let book of books">
                     <td>{{book.id}}</td>
-                    <td>{{book.title}}</td>
+                    <a [routerLink]="['/books', book.id]"><td>{{book.title}}</td></a>
                     <td>{{book.author}}</td>
-                    <td>{{book.description}}</td>
+                    <td>
+                        <div>
+                          {{ showFullDescription[book.id] ? book.description : (book.description | slice:0:150) + (book.description.length > 150 ? '...' : '') }}
+                          <button (click)="toggleDescription(book.id)" class="show-more">
+                            {{ showFullDescription[book.id] ? 'Show Less...' : 'Show More...' }}
+                          </button>
+                        </div>
+                      </td>
+                      
                     <td>{{book.pages}}</td>
                     <td>{{book.rating}}</td>
                     <td>{{book.publisherId}}</td>
