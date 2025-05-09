@@ -1,4 +1,4 @@
-<p>Publishers</p>
+<h1>Publishers</h1>
 
 @if (publishers){
     <table class="table table-striped" aria-labelledby="tableLabel">
@@ -13,7 +13,7 @@
             @for (publisher of publishers; track $index) {
                 <tr ngFor="let country of countries">
                     <a [routerLink]="['/publishers', publisher.id]">{{ publisher.id }}</a>
-                    <td>{{publisher.name}}</td>
+                    <td><a [routerLink]="['/publisherEdit',publisher.id]">{{publisher.name}}</a></td>
               
                 </tr>
             }

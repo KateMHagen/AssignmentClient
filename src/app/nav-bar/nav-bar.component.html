@@ -1,11 +1,17 @@
 <header>
     <mat-toolbar color="primary">
         <button mat-icon-button [routerLink]="['/']">
-            <mat-icon>home</mat-icon>
+          <mat-icon>home</mat-icon>
         </button>
-
+  
         <a mat-flat-button color="primary" [routerLink]="['/publishers']">Publishers</a>
         <a mat-flat-button color="primary" [routerLink]="['/books']">Books</a>
         <span class="separator"></span>
+        @if(isLoggedIn){
+        <a mat-flat-button color="primary" (click)="logout()">Logout</a>
+        }
+        @else {
+          <a mat-flat-button color="primary" [routerLink]="['/login']">Login</a>
+        }
     </mat-toolbar>
-</header>
+  </header>

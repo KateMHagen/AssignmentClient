@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
 import { Book } from '../books/book';
 
@@ -24,7 +24,7 @@ export class PublisherDetailsComponent implements OnInit {
 
   getPublisherDetails() {
     this.publisherId = Number(this.activatedRoute.snapshot.paramMap.get("id"));
-
+    
 
     this.http.get<any>(`${environment.baseUrl}/api/Publishers/${this.publisherId}`).subscribe({
       next: result => {
@@ -32,12 +32,15 @@ export class PublisherDetailsComponent implements OnInit {
       },
       error: error => console.error('Failed to load publisher:', error)
     });
-
-    this.http.get<Book[]>(`${environment.baseUrl}/api/Books`).subscribe({
+    
+    this.http.get<any>(`${environment.baseUrl}/api/Books`, { 
+      params: new HttpParams().set('pageSize', '9999')
+    }).subscribe({
       next: result => {
-        this.books = result.filter(b => b.publisherId === this.publisherId);
+        console.log("Books response:", result);
+        this.books = result.data.filter((b: { publisherId: number; }) => b.publisherId === this.publisherId);
       },
-      error: error => console.error(error)
+      error: error => console.error("Error loading books:", error)
     });
 
     

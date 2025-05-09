@@ -1,5 +1,3 @@
-<p>book-edit works!</p>
-
 <div class="book-edit">
   <h1>{{ title }}</h1>
 
@@ -7,12 +5,12 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="fill">
           <mat-label>Title:</mat-label>
-          <input matInput formControlName="title" required placeholder="Type a title" />
+          <input matInput formControlName="title" required="required" placeholder="Enter title" />
         </mat-form-field>
   
         <mat-form-field appearance="fill">
           <mat-label>Author:</mat-label>
-          <input matInput formControlName="author" required placeholder="Type an author" />
+          <input matInput formControlName="author" required="required" placeholder="Enter author" />
         </mat-form-field>
   
         <mat-form-field appearance="fill">
@@ -22,12 +20,12 @@
   
         <mat-form-field appearance="fill">
           <mat-label>Pages:</mat-label>
-          <input matInput formControlName="pages" required placeholder="Insert pages" />
+          <input matInput formControlName="pages" required="required" placeholder="Enter pages" />
         </mat-form-field>
   
         <mat-form-field appearance="fill">
           <mat-label>Rating:</mat-label>
-          <input matInput formControlName="rating" required placeholder="Insert rating" />
+          <input matInput formControlName="rating" required="required" placeholder="Enter rating" />
         </mat-form-field>
 
         @if (publishers) {

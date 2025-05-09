@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormsModule } from '@angular/forms';
-import { Book } from './book';
+import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { Book } from '../books/book';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
@@ -39,13 +39,13 @@ export class BookEditComponent implements OnInit {
 
   ngOnInit() {
     this.form = new FormGroup({
-      title: new FormControl(''),
-      author: new FormControl(''),
-      description: new FormControl(''),
-      pages: new FormControl(''),
-      rating: new FormControl(''),
-      publisher: new FormControl(''),
-      publisherId: new FormControl('')
+      title: new FormControl('',Validators.required),
+      author: new FormControl('',Validators.required),
+      description: new FormControl('',Validators.required),
+      pages: new FormControl('',Validators.required),
+      rating: new FormControl('',Validators.required),
+      publisher: new FormControl('',Validators.required),
+      publisherId: new FormControl('',Validators.required)
     });
     this.loadData();
   }
@@ -53,19 +53,17 @@ export class BookEditComponent implements OnInit {
   loadData() {
     this.loadPublishers();
     this.id = +this.activatedRoute.snapshot.paramMap.get('id')!;
-    if(this.id) {
-      this.http.get<Book>(`${environment.baseUrl}/api/Books/${this.id}`).subscribe({
-        next: result => {
-          this.book = result;
-          this.title = "Edit - " + this.book.title;
-          this.form.patchValue(this.book);
+ 
+    this.http.get<Book>(`${environment.baseUrl}/api/Books/${this.id}`).subscribe({
+      next: result => {
+        this.book = result;
+        this.title = "Edit - " + this.book.title;
+        this.form.patchValue(this.book);
   
-        },
-        error: error => console.error(error)
-      });
-    } else {
-      this.title = "Create a new book"; 
-    }
+      },
+      error: error => console.error(error)
+    });
+    
     
   }
 
