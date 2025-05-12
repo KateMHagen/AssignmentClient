@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { Publisher } from './publisher';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { RouterLink } from '@angular/router';
-
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-publishers',
   imports: [
-    RouterLink
+    RouterLink,
+    CommonModule
   ],
   templateUrl: './publishers.component.html',
   styleUrl: './publishers.component.scss'

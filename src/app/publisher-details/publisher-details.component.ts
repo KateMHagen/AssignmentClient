@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { Book } from '../books/book';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-publisher-details',
   templateUrl: './publisher-details.component.html',
-  styleUrls: ['./publisher-details.component.scss']
+  styleUrls: ['./publisher-details.component.scss'],
+  imports: [CommonModule]
 })
 
 export class PublisherDetailsComponent implements OnInit {

@@ -1,5 +1,5 @@
 <h1>Publishers</h1>
-
+<p *ngIf="!publishers"><em>Loading...</em></p>
 @if (publishers){
     <table class="table table-striped" aria-labelledby="tableLabel">
         <thead>
@@ -21,6 +21,4 @@
 
     </table>
 
-} @else {
-    <p><em>Loading...</em></p>
 }
